@@ -33,3 +33,12 @@ echo "Starting the app in the background..."
 node server.js &
 
 echo "Stage 2 complete: app started."
+
+echo "Waiting for the app to start..."
+sleep 3
+
+echo "Checking the app process:"
+ps aux | grep "node server.js" | grep -v grep
+
+echo "Checking the listening port:"
+ss -tulpn | grep node
