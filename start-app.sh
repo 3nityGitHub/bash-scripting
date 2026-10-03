@@ -1,6 +1,14 @@
 #!/bin/bash
 set -e
 set -u
+LOG_DIRECTORY=$1
+echo "Log directory requested: $LOG_DIRECTORY"
+if [ -d "$LOG_DIRECTORY" ]; then
+	echo "Log directory already exists.."
+else
+	echo "Creating log directory..."
+	mkdir -p "$LOG_DIRECTORY"
+fi
 
 echo "Installing Node.js and npn ..."
 sudo apt update
@@ -21,7 +29,8 @@ echo "Setting environment variables..."
 export APP_ENV=dev
 export DB_USER=myuser
 export DB_PWD=mysecret
-
+export LOG_DIR=$(cd "$LOG_DIRECTORY" && pwd)
+echo "LOG_DIR set to: $LOG_DIR"
 echo "Entering app directory..."
 cd package
 
